@@ -15,14 +15,14 @@ interface HoverEffectProps {
   className?: string;
 }
 
-export const HoverEffect = memo(({ items, className }: HoverEffectProps) => {
+const HoverEffectComponent = ({ items, className }: HoverEffectProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <div
       className={cn(
         "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-10",
-        className ?? ""
+        className
       )}
     >
       {items.map((item, idx) => (
@@ -58,7 +58,12 @@ export const HoverEffect = memo(({ items, className }: HoverEffectProps) => {
       ))}
     </div>
   );
-});
+};
+
+// Assign a display name for better debugging
+HoverEffectComponent.displayName = "HoverEffect";
+
+export const HoverEffect = memo(HoverEffectComponent);
 
 interface CardProps {
   className?: string;
@@ -70,7 +75,7 @@ export const Card = ({ className, children }: CardProps) => {
     <div
       className={cn(
         "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-50",
-        className ?? ""
+        className
       )}
     >
       <div className="relative z-50">
@@ -82,7 +87,7 @@ export const Card = ({ className, children }: CardProps) => {
 
 export const CardTitle = ({ className, children }: CardProps) => {
   return (
-    <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className ?? "")}>
+    <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>
       {children}
     </h4>
   );
@@ -93,7 +98,7 @@ export const CardDescription = ({ className, children }: CardProps) => {
     <p
       className={cn(
         "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
-        className ?? ""
+        className
       )}
     >
       {children}
